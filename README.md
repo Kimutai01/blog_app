@@ -17,7 +17,7 @@ to get a local copy , clone the repository using git clone https://github.com/Ki
 
 After you clone it run the following commands
 
-- cd blogg
+- cd blog_app
 - bundle install
 - rails server
 

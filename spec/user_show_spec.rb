@@ -23,5 +23,16 @@ RSpec.describe "UsersShow", type: :feature do
     it 'I can see the number of posts the user has written.' do
       expect(page).to have_content("Number of posts: #{@user.posts_counter}")
     end
+
+    it 'Can see the users bio' do
+      expect(page).to have_content(@user.bio)
+    end
+
+    it 'I can see the user’s first 3 posts.' do
+      expect(page).to have_content('Post 4')
+      expect(page).to have_content('Post 3')
+      expect(page).to have_content('Post 2')
+    end
+
 end
         

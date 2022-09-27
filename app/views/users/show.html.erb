@@ -1,17 +1,14 @@
-<%= render 'partials/user', user: @user %>
-<div class="user-container">
-  <h2>Bio</h2>
-  <p>
-    <%= @user.bio %>  
-  </p>
+<%= render partial: "shared/user/user_header", locals: { user: @user } %>
+<div class="bio">
+  <h4>Bio</h4>
+  <p><%= @user.bio %></p>
 </div>
-<% if @user.recent_posts.length > 0 %>
-  <% @user.recent_posts.each do |post| %>
-    <%= render partial: 'partials/posts', locals: { post: post } %>
+<% if @user.posts.count > 0 %>
+  <% @user.last_three_posts.each do |post| %>
+    <%= render partial: "shared/post/post_summary", locals: { post: post } %>
   <% end %>
-  <div class="btn-container">
-    <button type="button">
-      <%= link_to "See all posts", user_posts_path(@user) %>
-    </button>
-  </div>
+  <%= link_to "See all posts", user_posts_path(@user), class: 'all_posts' %>
+<% else %>
+  <p>This user has no post</p>
 <% end %>
+<%= link_to "Create new post" , new_user_post_path(@user), class: "all_posts" %>

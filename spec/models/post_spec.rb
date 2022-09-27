@@ -1,47 +1,44 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-  before :each do
-    @first_user = User.create(name: 'Tom', photo: 'https://unsplash.com/photos/F_-0BxGuVvo',
-                              bio: 'Teacher from Mexico.', post_counter: 0)
-    @first_user.save
-
-    @post = Post.create(author_id: @first_user.id, title: 'Hello', text: 'This is my first post', comments_counter: 0,
-                        likes_counter: 0)
-    @post.save
+  subject do
+    user = User.create(name: 'Tom', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher from Mexico.',
+                       posts_counter: 0)
+    Post.create(title: 'Hello', text: 'This is my first post', comments_counter: 0, likes_counter: 0, author: user)
+    Post.create(title: 'Hello2', text: 'This is my second post', comments_counter: 0, likes_counter: 0, author: user)
+    Post.new(title: 'Hello3', text: 'This is my third post', comments_counter: 0, likes_counter: 0, author: user)
   end
-  context 'Posts validations' do
-    it 'Title must not be blank.' do
-      @post.title = ''
-      expect(@post).to_not be_valid
-    end
 
-    it 'Title must not exceed 250 characters' do
-      @post.title = 'A' * 251
-      expect(@post).to_not be_valid
-    end
+  before { subject.save }
 
-    it 'CommentsCounter must be an integer greater than or equal to zero' do
-      @post.comments_counter = -1
-      expect(@post).to_not be_valid
-    end
+  it 'title should be present' do
+    subject.title = nil
+    expect(subject).to_not be_valid
+  end
 
-    it 'LikesCounter must be an integer greater than or equal to zero.' do
-      @post.likes_counter = -1
-      expect(@post).to_not be_valid
-    end
+  it 'comment counter should be greater or equal to 0' do
+    subject.comments_counter = -1
+    expect(subject).to_not be_valid
+  end
 
-    it 'PostsCounter must be an integer greater than or equal to zero.' do
-      @post.update_posts_counter
-      @post.save
-      expect(@post.author.post_counter).to be > 0
-    end
-    it 'validate recent comments method' do
-      comment1 = Comment.create(text: 'This is my first comment', post_id: @post.id, author_id: @first_user.id)
-      comment1.save
-      comment2 = Comment.create(text: 'This is my second comment', post_id: @post.id, author_id: @first_user.id)
-      comment2.save
-      expect(@post.recent_comments).to eq([comment1, comment2])
-    end
+  it 'likes counter should be greater or equal to 0' do
+    subject.likes_counter = -1
+    expect(subject).to_not be_valid
+  end
+
+  it 'should update posts counter' do
+    expect(subject.author.posts_counter).to eq 3
+  end
+
+  it 'should get last 5 comment' do
+    Comment.create(post: subject, author: subject.author, text: 'Hi John!')
+    Comment.create(post: subject, author: subject.author, text: 'Hi John!2')
+    Comment.create(post: subject, author: subject.author, text: 'Hi John!3')
+    Comment.create(post: subject, author: subject.author, text: 'Hi John!4')
+    Comment.create(post: subject, author: subject.author, text: 'Hi John!5')
+    Comment.create(post: subject, author: subject.author, text: 'Hi John!6')
+    Comment.create(post: subject, author: subject.author, text: 'Hi John!7')
+    expect(subject.last_five_comments.length).to eq 5
+    expect(subject.last_five_comments[0].text).to eq 'Hi John!7'
   end
 end

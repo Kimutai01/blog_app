@@ -34,5 +34,13 @@ RSpec.describe "UsersShow", type: :feature do
       expect(page).to have_content('Post 2')
     end
 
+    it 'See a button to view all posts written by the user.' do
+      expect(page).to have_link('See all posts')
+    end
+
+    it 'Click on users post and see the post details' do
+      click_link('Post 4')
+      expect(page).to have_current_path(post_path(@user.posts[4].id))
+    end
 end
         

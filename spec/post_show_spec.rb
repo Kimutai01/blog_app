@@ -30,5 +30,19 @@ RSpec.describe "PostShow", type: :feature do
     expect(page).to have_content("Likes: #{@post.likes_counter}")
   end
 
-  
+  it 'I can see the post text' do
+    expect(page).to have_content(@post.text)
+  end
+
+  it 'shows username of each comment author' do
+    comment = @post.comments.first
+    expect(page).to have_content(comment.author.name)
+  end
+
+  it 'shows the comment each comment author left' do    
+    comment = @post.comments.first
+    comment2 = @post.comments.last
+    expect(page).to have_content(comment.text)
+    expect(page).to have_content(comment2.text)
+  end
 end

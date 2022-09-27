@@ -41,13 +41,6 @@ RSpec.describe 'Posts index' , type: :feature do
         visit user_posts_path(@user)
         expect(page).to have_content(@first_post.likes.count)
     end
-    it 'shows pagination' do
-        10.times do |_i|
-            Post.create(author: @user, title: 'Hello', text: 'This is my first post')
-        end
-        visit user_posts_path(@user)
-        expect(page).to have_content('pagination')
-    end
     it 'should redirect to post page on post click' do
         visit user_path(@user)
         click_on @first_post.title

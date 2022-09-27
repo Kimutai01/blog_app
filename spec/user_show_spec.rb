@@ -18,6 +18,10 @@ RSpec.describe "UsersShow", type: :feature do
 
     it 'displays users unsername' do       
         expect(page).to have_content(@user.name)
-    end  
+    end
+
+    it 'I can see the number of posts the user has written.' do
+      expect(page).to have_content("Number of posts: #{@user.posts_counter}")
+    end
 end
         

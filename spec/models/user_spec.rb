@@ -1,36 +1,30 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  before :each do
-    @first_user = User.create(name: 'Tom', photo: 'https://unsplash.com/photos/F_-0BxGuVvo',
-                              bio: 'Teacher from Mexico.', post_counter: 0)
-    @first_user.save
+  subject { User.new(name: 'Tom', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher from Mexico.', posts_counter: 0) }
+
+  before { subject.save }
+
+  it 'should save the user' do
+    expect(subject).to be_valid
   end
-  context 'Users validations' do
-    it 'Name must not be blank.' do
-      @first_user.name = ''
-      expect(@first_user).to_not be_valid
-    end
 
-    it 'PostsCounter must be an integer greater than or equal to zero.' do
-      @first_user.post_counter = -10
-      expect(@first_user).to_not be_valid
-    end
+  it 'name should be present' do
+    subject.name = nil
+    expect(subject).to_not be_valid
+  end
 
-    it 'validate recent_posts method' do
-      first_post = Post.new(author_id: @first_user.id, title: 'First post', text: 'First post by first user',
-                            comments_counter: 0, likes_counter: 0)
-      first_post.save
-      second_post = Post.new(author_id: @first_user.id, title: 'Second post', text: 'Second post by first user',
-                             comments_counter: 0, likes_counter: 0)
-      second_post.save
-      third_post = Post.new(author_id: @first_user.id, title: 'Third post', text: 'Third post by first user',
-                            comments_counter: 0, likes_counter: 0)
-      third_post.save
-      fourth_post = Post.new(author_id: @first_user.id, title: 'Fourth post', text: 'Fourth post by first user',
-                             comments_counter: 0, likes_counter: 0)
-      fourth_post.save
-      expect(@first_user.recent_posts).to eq([fourth_post, third_post, second_post])
-    end
+  it 'should have equal to or greater than 0 post counter' do
+    subject.posts_counter = nil
+    expect(subject).to_not be_valid
+  end
+
+  it 'should get the last 3 posts' do
+    Post.create(title: 'Hello', text: 'This is my first post', comments_counter: 0, likes_counter: 0, author: subject)
+    Post.create(title: 'Hello2', text: 'This is my second post', comments_counter: 0, likes_counter: 0, author: subject)
+    Post.create(title: 'Hello3', text: 'This is my third post', comments_counter: 0, likes_counter: 0, author: subject)
+    Post.create(title: 'Hello4', text: 'This is my fourth post', comments_counter: 0, likes_counter: 0, author: subject)
+    expect(subject.last_three_posts.length).to eq 3
+    expect(subject.last_three_posts[0].text).to eq 'This is my fourth post'
   end
 end

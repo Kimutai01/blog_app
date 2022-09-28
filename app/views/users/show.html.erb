@@ -1,4 +1,5 @@
 <%= render partial: "shared/user/user_header", locals: { user: @user } %>
+<%# <%= link_to "Sign out", destroy_user_session_path, method: :delete %> 
 <div class="bio">
   <h4>Bio</h4>
   <p><%= @user.bio %></p>

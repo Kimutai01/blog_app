@@ -33,14 +33,14 @@ body {
   padding: 0 16px;
   margin: 4px;
   border-radius: 8px;
-  border: 1px solid #0b1b33;
+  border: 1px solid #71c9ce;
   justify-content: space-between;
 
   &_name {
     text-decoration: none;
     font-weight: bold;
     font-size: 23px;
-    color: #b7b922;
+    color: #2e898e;
     transition: all ease-in-out 0.3s;
 
     &:hover {
@@ -68,7 +68,7 @@ body {
   padding: 8px 16px;
   margin-top: 20px;
   border-radius: 8px;
-  border: 1px solid #bcbe43;
+  border: 1px solid #71c9ce;
 
   h4 {
     font-weight: bold;
@@ -76,7 +76,7 @@ body {
 
     a {
       text-decoration: none;
-      color: #b7b922;
+      color: #2e898e;
     }
   }
 
@@ -103,7 +103,7 @@ body {
   margin-top: 4px;
   margin-bottom: 20px;
   border-radius: 8px;
-  border: 1px solid #b7b922;
+  border: 1px solid #71c9ce;
 }
 
 .post {
@@ -120,18 +120,18 @@ body {
 }
 
 span {
-  color: #b7b922;
+  color: dodgerblue;
 }
 
 .bio {
   padding: 8px 16px;
   margin: 20px 0;
   border-radius: 8px;
-  border: 1px solid #b7b922;
+  border: 1px solid #71c9ce;
 
   h4 {
     font-size: 18px;
-    color: #b7b922;
+    color: #2e898e;
   }
 }
 
@@ -143,7 +143,7 @@ span {
   border-radius: 8px;
   padding: 8px 16px;
   font-weight: bold;
-  background-color: #b7b922;
+  background-color: #2e898e;
   color: white;
   outline: none;
   border: none;

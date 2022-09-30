@@ -17,6 +17,8 @@ gem 'puma', '~> 5.0'
 gem 'sassc-rails'
 gem 'sass-rails'
 gem 'cancancan'
+gem 'jwt', '~> 2.4'
+
 
 gem 'ffi', github: 'ffi/ffi', submodules: true
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]

@@ -1,4 +1,5 @@
 <h3>Create new Post</h3>
+
 <%= form_with model: @post, url: user_posts_path, method: :post, data: { turbo: false } do |form| %>
   <div class="mb-3">
     <%= form.label :title %>
@@ -8,6 +9,7 @@
     <%= form.label :text %>
     <%= form.text_area :text, class: 'form-control', placeholder: 'Content' %>
   </div>
+
   <div class="mb-3">
     <%= form.submit 'Create post', class: 'btn btn-primary' %>
   </div>

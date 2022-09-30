@@ -11,12 +11,12 @@ gem 'sprockets-rails'
 gem 'pg', '~> 1.1'
 
 # Use the Puma web server [https://github.com/puma/puma]
+gem 'cancancan'
 gem 'devise'
 gem 'letter_opener'
 gem 'puma', '~> 5.0'
 gem 'sassc-rails'
 gem 'sass-rails'
-gem 'cancancan'
 
 gem 'ffi', github: 'ffi/ffi', submodules: true
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]

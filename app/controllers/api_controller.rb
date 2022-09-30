@@ -20,7 +20,7 @@ class ApiController < ApplicationController
     text = params[:text]
     return unless check_comment_params(text)
 
-    comment = Comment.new(text:, author: @current_user, post_id:)
+    comment = Comment.new(text: text, author: @current_user, post_id: post_id)
     if comment.save
       json_response(comment, 200)
     else
@@ -68,7 +68,7 @@ class ApiController < ApplicationController
 
   def authenticate(authentication_token)
     email = ApiHelper::JsonWebToken.decode(authentication_token)[0]
-    user = User.find_by(email:)
+    user = User.find_by(email: email)
     return false if user.nil?
 
     @current_user = user
